@@ -16,18 +16,17 @@
 
 using namespace arma;
 
-struct ps_alt {
-    std::string sink;
-    int pathid;
+struct alt {
+    int id;
     double rank;
-};
+}
 
 class TopsisEngine {
     private:
         mat table;
         int alt_num;
         int alt_added;
-        std::vector<ps_alt> alts;
+        std::vector<alt> alts;
         rowvec weights;
         std::vector<bool> attrs;
     protected:
@@ -104,7 +103,7 @@ class TopsisEngine {
                                    alt_added(0) {
             table=mat(alt_num, 4, fill::zeros);
         };
-        void addAlternative(ps_alt id, int hop, double pdr, double nrg, double env) {
+        void addAlternative(alt id, int hop, double pdr, double nrg, double env) {
             if(alt_added < alt_num) {
                 alts.push_back(id);
                 rowvec v({static_cast<double>(hop), pdr, nrg, env});
