@@ -104,6 +104,7 @@ class TopsisEngine {
         TopsisEngine(const int alt_num, const int attr_num): alt_added(0) {
             table=mat(alt_num, attr_num, fill::zeros);
             weights=rowvec(attr_num, fill::value(1.0/static_cast<double>(alt_num)));
+            attrs=std::vector<bool>(attr_num, false);
         };
 
         void addAlternative(const alt id, const std::vector<double> &alt) {
