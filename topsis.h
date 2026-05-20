@@ -89,13 +89,13 @@ class TopsisEngine {
 
         colvec calculateCloseness(colvec id_pos_sep, colvec id_neg_sep) {
             colvec res(id_pos_sep.n_rows, fill::zeros);
-            for(int i=0 ; i < id_neg_sep.n_rows; ++i) {
-                if(id_neg_sep[0] == 0.0) {
+            for(uword i=0 ; i < id_neg_sep.n_rows; ++i) {
+                const double denom = id_neg_sep[i] + id_pos_sep[i];
+                if(denom == 0.0) {
                     res[i]=0;
                 } else {
-                    res[i]= id_neg_sep[i] / (id_neg_sep[i]+id_pos_sep[i]);
+                    res[i]= id_neg_sep[i] / denom;
                 }
-                
             }
             return res;
         };
