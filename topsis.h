@@ -120,11 +120,21 @@ class TopsisEngine {
         };
 
         void addWeights(const std::vector<double> &w_arr) {
-            weights=w_arr;
-            weights=weights/sum(weights);
+            if(w_arr.size() != table.n_cols) {
+                throw std::invalid_argument("Weights count does not match table column size");
+            }
+            weights=rowvec(w_arr);
+            const double w_sum = sum(weights);
+            if(w_sum <= 0.0) {
+                throw std::invalid_argument("Sum of weights must be positive");
+            }
+            weights=weights/w_sum;
         };
 
         void addBenefits(const std::vector<bool> &b_arr) {
+            if(b_arr.size() != table.n_cols) {
+                throw std::invalid_argument("Benefits count does not match table column size");
+            }
             attrs=b_arr;
         };
 
